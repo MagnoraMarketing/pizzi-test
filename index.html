@@ -4,256 +4,113 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Forno Rosso – Napolitansk pizzeria</title>
-  <meta name="description" content="Forno Rosso – stenovnsbagt napolitansk pizza lavet på surdej, friske råvarer og 48 timers hævning.">
+  <meta name="description" content="Forno Rosso – napolitansk pizza bagt i træfyret ovn.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23e8a849'/><circle cx='50' cy='50' r='38' fill='%23c8352b'/><circle cx='35' cy='40' r='7' fill='%23f6efe2'/><circle cx='62' cy='58' r='7' fill='%23f6efe2'/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23d9a066'/><circle cx='50' cy='50' r='38' fill='%23b8352a'/></svg>">
 </head>
 <body>
 
-  <!-- Navigation -->
-  <header class="nav" id="top">
+  <header class="nav">
     <div class="container nav__inner">
-      <a href="#top" class="logo">Forno<span>Rosso</span></a>
-      <button class="nav__toggle" aria-label="Åbn menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="nav__links">
-        <a href="#om">Om os</a>
+      <a href="#" class="logo">Forno Rosso</a>
+      <nav>
         <a href="#menu">Menu</a>
-        <a href="#galleri">Ovnen</a>
         <a href="#besog">Besøg</a>
-        <a href="#bestil" class="btn btn--small">Bestil bord</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div class="container hero__inner">
       <div class="hero__text">
-        <p class="eyebrow">Stenovn · Surdej · 48 timers hævning</p>
-        <h1>Pizza bagt ved <em>450°</em> på 90 sekunder</h1>
-        <p class="lead">Vi laver napolitansk pizza på den langsomme måde: dej med egen surdejskultur, tomater fra Campanien og mozzarella, der bliver revet i hånden hver morgen.</p>
-        <div class="hero__cta">
-          <a href="#menu" class="btn">Se menuen</a>
-          <a href="#bestil" class="btn btn--ghost">Bestil bord</a>
-        </div>
-        <ul class="hero__facts">
-          <li><strong>12</strong><span>pizzaer på kortet</span></li>
-          <li><strong>48 t</strong><span>dejhævning</span></li>
-          <li><strong>450°</strong><span>i ovnen</span></li>
-        </ul>
+        <p class="eyebrow">Napolitansk pizza · Aarhus</p>
+        <h1>Enkel pizza,<br><em>gjort ordentligt.</em></h1>
+        <p class="lead">Surdej, tomater, mozzarella og en træfyret ovn på 450 grader. Mere skal der ikke til.</p>
+        <a href="#menu" class="btn">Se menuen</a>
       </div>
-      <div class="hero__art" aria-hidden="true">
-        <svg viewBox="0 0 400 400" class="pizza">
-          <defs>
-            <radialGradient id="crust" cx="50%" cy="50%" r="50%">
-              <stop offset="80%" stop-color="#e8a849"/>
-              <stop offset="100%" stop-color="#9a5a1e"/>
-            </radialGradient>
-          </defs>
-          <circle cx="200" cy="200" r="190" fill="url(#crust)"/>
-          <circle cx="200" cy="200" r="160" fill="#c8352b"/>
-          <g fill="#f6efe2">
-            <ellipse cx="140" cy="150" rx="34" ry="28"/>
-            <ellipse cx="260" cy="130" rx="30" ry="26"/>
-            <ellipse cx="270" cy="250" rx="36" ry="30"/>
-            <ellipse cx="150" cy="270" rx="30" ry="26"/>
-            <ellipse cx="205" cy="205" rx="26" ry="22"/>
-          </g>
-          <g fill="#3f7a3a">
-            <path d="M170 110c20-14 40-8 46 6-18 10-36 8-46-6z"/>
-            <path d="M300 190c4 22-8 38-22 38 0-20 8-34 22-38z"/>
-            <path d="M110 210c18-12 36-6 40 8-16 8-32 6-40-8z"/>
-            <path d="M210 300c18 6 26 22 18 34-16-4-24-18-18-34z"/>
-          </g>
-          <g fill="#6b1c16" opacity=".35">
-            <circle cx="180" cy="250" r="5"/><circle cx="240" cy="170" r="4"/>
-            <circle cx="300" cy="300" r="5"/><circle cx="110" cy="180" r="4"/>
-          </g>
-        </svg>
-      </div>
+      <svg class="pizza" viewBox="0 0 400 400" aria-hidden="true">
+        <defs>
+          <radialGradient id="crust" cx="50%" cy="50%" r="50%">
+            <stop offset="78%" stop-color="#e3b072"/>
+            <stop offset="94%" stop-color="#c98a45"/>
+            <stop offset="100%" stop-color="#8a5424"/>
+          </radialGradient>
+          <radialGradient id="sauce" cx="45%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#d4453a"/>
+            <stop offset="100%" stop-color="#a52a20"/>
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="188" fill="url(#crust)"/>
+        <g fill="#3b2416" opacity=".55">
+          <circle cx="60" cy="150" r="5"/><circle cx="340" cy="230" r="6"/>
+          <circle cx="250" cy="28" r="4"/><circle cx="120" cy="352" r="5"/>
+          <circle cx="330" cy="110" r="3"/><circle cx="40" cy="250" r="3"/>
+        </g>
+        <path d="M200 50c82 0 152 64 150 148s-64 152-150 152S48 290 50 200 118 50 200 50z" fill="url(#sauce)"/>
+        <g fill="#fbf4e8">
+          <path d="M120 130c18-14 44-8 48 12s-14 34-34 32-30-30-14-44z"/>
+          <path d="M240 108c20-8 42 4 40 24s-24 30-40 22-20-38 0-46z"/>
+          <path d="M250 240c22-10 48 6 46 28s-30 34-48 24-20-42 2-52z"/>
+          <path d="M120 250c18-8 40 4 38 24s-26 28-42 20-16-36 4-44z"/>
+          <path d="M190 180c16-6 32 4 30 20s-20 24-34 16-12-30 4-36z"/>
+        </g>
+        <g fill="#2f6a33">
+          <path d="M175 118c16-16 40-14 46 0-16 14-36 14-46 0z"/>
+          <path d="M296 196c6 22-6 40-20 40-2-20 6-34 20-40z"/>
+          <path d="M100 196c16-14 38-10 42 4-16 12-34 10-42-4z"/>
+          <path d="M200 296c20 2 32 18 26 32-18-2-28-16-26-32z"/>
+        </g>
+      </svg>
     </div>
   </section>
 
-  <!-- Om os -->
-  <section class="section" id="om">
-    <div class="container split">
-      <div>
-        <p class="eyebrow">Om os</p>
-        <h2>Et lille køkken med én stor ovn</h2>
-        <p>Forno Rosso startede som et weekendprojekt i en baggård og er i dag et kvarterssted med 40 pladser. Ovnen er muret i hånden og fyres med bøgetræ, og vi har kun én regel: dejen bestemmer.</p>
-        <p>Det betyder, at vi nogle dage lukker køkkenet, når dejen er brugt op. Så kom gerne tidligt – eller bestil bord.</p>
-      </div>
-      <div class="features">
-        <article class="feature">
-          <div class="feature__icon">🌾</div>
-          <h3>Langsom dej</h3>
-          <p>Italiensk tipo 00-mel, egen surdej og 48 timers kold hævning.</p>
-        </article>
-        <article class="feature">
-          <div class="feature__icon">🍅</div>
-          <h3>Ærlige råvarer</h3>
-          <p>San Marzano-tomater, fior di latte og basilikum fra lokale gartnere.</p>
-        </article>
-        <article class="feature">
-          <div class="feature__icon">🔥</div>
-          <h3>Træfyret ovn</h3>
-          <p>450 grader giver den bløde, luftige kant med sorte leopardpletter.</p>
-        </article>
-      </div>
+  <section class="section" id="menu">
+    <div class="container narrow">
+      <p class="eyebrow center">Menu</p>
+      <h2 class="center">Fra ovnen</h2>
+
+      <ul class="menu">
+        <li><div><h3>Marinara</h3><p>Tomat, hvidløg, oregano, olivenolie</p></div><span>95</span></li>
+        <li><div><h3>Margherita</h3><p>Tomat, fior di latte, basilikum</p></div><span>115</span></li>
+        <li><div><h3>Diavola</h3><p>Tomat, mozzarella, stærk salami, chili-honning</p></div><span>135</span></li>
+        <li><div><h3>Funghi</h3><p>Mozzarella, svampe, timian, citron</p></div><span>130</span></li>
+        <li><div><h3>Patate</h3><p>Kartoffel, rosmarin, røget provola</p></div><span>135</span></li>
+        <li><div><h3>Burrata</h3><p>Tomat, burrata, nduja, basilikum</p></div><span>155</span></li>
+      </ul>
+      <p class="note">Alle pizzaer kan fås glutenfri · Priser i kr.</p>
     </div>
   </section>
 
-  <!-- Menu -->
-  <section class="section section--alt" id="menu">
-    <div class="container">
-      <div class="section__head">
-        <p class="eyebrow">Menu</p>
-        <h2>Fra ovnen</h2>
-        <p>Alle pizzaer kan fås glutenfri (+20 kr.) og med vegansk ost.</p>
-      </div>
-
-      <div class="tabs" role="tablist">
-        <button class="tab is-active" data-filter="rosso" role="tab">Rosso</button>
-        <button class="tab" data-filter="bianca" role="tab">Bianca</button>
-        <button class="tab" data-filter="side" role="tab">Tilbehør</button>
-        <button class="tab" data-filter="dolci" role="tab">Dessert</button>
-      </div>
-
-      <div class="menu">
-        <article class="dish" data-cat="rosso">
-          <div><h3>Marinara</h3><p>Tomat, hvidløg, oregano, olivenolie</p></div><span class="price">95,-</span>
-        </article>
-        <article class="dish" data-cat="rosso">
-          <div><h3>Margherita</h3><p>Tomat, fior di latte, basilikum, parmesan</p></div><span class="price">115,-</span>
-        </article>
-        <article class="dish" data-cat="rosso">
-          <div><h3>Diavola</h3><p>Tomat, fior di latte, spicy salami, chili-honning</p></div><span class="price">135,-</span>
-        </article>
-        <article class="dish" data-cat="rosso">
-          <div><h3>Capricciosa</h3><p>Tomat, skinke, champignon, artiskok, oliven</p></div><span class="price">139,-</span>
-        </article>
-        <article class="dish" data-cat="rosso">
-          <div><h3>Rosso Speciale <span class="tag">Husets</span></h3><p>Tomat, burrata, nduja, ristede peberfrugter, basilikum</p></div><span class="price">155,-</span>
-        </article>
-        <article class="dish" data-cat="rosso">
-          <div><h3>Ortolana</h3><p>Tomat, grillet aubergine, squash, ricotta, mynte</p></div><span class="price">129,-</span>
-        </article>
-
-        <article class="dish" data-cat="bianca">
-          <div><h3>Quattro Formaggi</h3><p>Fior di latte, gorgonzola, taleggio, parmesan, valnødder</p></div><span class="price">139,-</span>
-        </article>
-        <article class="dish" data-cat="bianca">
-          <div><h3>Patate</h3><p>Tynde kartofler, rosmarin, provola, trøffelolie</p></div><span class="price">135,-</span>
-        </article>
-        <article class="dish" data-cat="bianca">
-          <div><h3>Salsiccia e Friarielli</h3><p>Fennikelpølse, broccoli rabe, røget provola</p></div><span class="price">145,-</span>
-        </article>
-        <article class="dish" data-cat="bianca">
-          <div><h3>Funghi</h3><p>Fior di latte, svampe, timian, citronskal</p></div><span class="price">135,-</span>
-        </article>
-
-        <article class="dish" data-cat="side">
-          <div><h3>Pizzabrød</h3><p>Med hvidløgssmør og flagesalt</p></div><span class="price">45,-</span>
-        </article>
-        <article class="dish" data-cat="side">
-          <div><h3>Burrata</h3><p>Tomater, basilikumolie, ristet brød</p></div><span class="price">95,-</span>
-        </article>
-        <article class="dish" data-cat="side">
-          <div><h3>Rucolasalat</h3><p>Parmesan, citron, pinjekerner</p></div><span class="price">65,-</span>
-        </article>
-
-        <article class="dish" data-cat="dolci">
-          <div><h3>Tiramisu</h3><p>Husets opskrift med espresso og marsala</p></div><span class="price">65,-</span>
-        </article>
-        <article class="dish" data-cat="dolci">
-          <div><h3>Nutella-calzone</h3><p>Lille foldet pizza med hasselnødder og flormelis</p></div><span class="price">75,-</span>
-        </article>
-        <article class="dish" data-cat="dolci">
-          <div><h3>Affogato</h3><p>Vaniljeis druknet i espresso</p></div><span class="price">45,-</span>
-        </article>
-      </div>
+  <section class="quote">
+    <div class="container narrow">
+      <blockquote>“Dejen hviler i 48 timer. Pizzaen er i ovnen i 90 sekunder.”</blockquote>
     </div>
   </section>
 
-  <!-- Ovnen / proces -->
-  <section class="section" id="galleri">
-    <div class="container">
-      <div class="section__head">
-        <p class="eyebrow">Fra dej til bord</p>
-        <h2>Sådan bliver en pizza til</h2>
-      </div>
-      <ol class="steps">
-        <li class="step step--1"><span>01</span><h3>Dejen</h3><p>Æltes om morgenen og hviler koldt i to døgn.</p></li>
-        <li class="step step--2"><span>02</span><h3>Formen</h3><p>Trykkes ud i hånden – aldrig med kagerulle.</p></li>
-        <li class="step step--3"><span>03</span><h3>Ovnen</h3><p>90 sekunder ved 450 grader og en enkelt drejning.</p></li>
-        <li class="step step--4"><span>04</span><h3>Bordet</h3><p>Lidt olivenolie og frisk basilikum til sidst.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Bestil bord -->
-  <section class="section section--dark" id="bestil">
-    <div class="container split">
-      <div>
-        <p class="eyebrow">Bestil bord</p>
-        <h2>Sæt dig ved ovnen</h2>
-        <p>Vi holder altid halvdelen af bordene fri til walk-ins. Selskaber over 8 personer bedes ringe.</p>
-      </div>
-      <form class="booking" novalidate>
-        <label>Navn<input type="text" name="name" required placeholder="Dit navn"></label>
-        <label>Telefon<input type="tel" name="phone" required placeholder="12 34 56 78"></label>
-        <div class="booking__row">
-          <label>Dato<input type="date" name="date" required></label>
-          <label>Tid
-            <select name="time" required>
-              <option>17:00</option><option>17:30</option><option>18:00</option>
-              <option>18:30</option><option>19:00</option><option>19:30</option>
-              <option>20:00</option><option>20:30</option>
-            </select>
-          </label>
-          <label>Personer<input type="number" name="guests" min="1" max="8" value="2" required></label>
-        </div>
-        <button type="submit" class="btn">Send forespørgsel</button>
-        <p class="booking__msg" role="status"></p>
-      </form>
-    </div>
-  </section>
-
-  <!-- Besøg -->
   <section class="section" id="besog">
     <div class="container visit">
-      <div class="visit__card">
+      <div>
         <h3>Adresse</h3>
         <p>Ovnstræde 12<br>8000 Aarhus C</p>
       </div>
-      <div class="visit__card">
-        <h3>Åbningstider</h3>
-        <ul class="hours">
-          <li><span>Man–tirs</span><span>Lukket</span></li>
-          <li><span>Ons–tors</span><span>17–21</span></li>
-          <li><span>Fre–lør</span><span>16–22</span></li>
-          <li><span>Søn</span><span>16–20</span></li>
-        </ul>
+      <div>
+        <h3>Åbent</h3>
+        <p>Ons–søn<br>17.00–21.30</p>
       </div>
-      <div class="visit__card">
-        <h3>Kontakt</h3>
-        <p><a href="tel:+4512345678">+45 12 34 56 78</a><br><a href="mailto:hej@fornorosso.dk">hej@fornorosso.dk</a></p>
+      <div>
+        <h3>Bord</h3>
+        <p><a href="tel:+4512345678">12 34 56 78</a><br><a href="mailto:hej@fornorosso.dk">hej@fornorosso.dk</a></p>
       </div>
     </div>
   </section>
 
   <footer class="footer">
-    <div class="container footer__inner">
-      <a href="#top" class="logo">Forno<span>Rosso</span></a>
-      <p>© <span id="year"></span> Forno Rosso · Bagt med tålmodighed</p>
-    </div>
+    <div class="container">© <span id="year"></span> Forno Rosso</div>
   </footer>
 
-  <script src="assets/main.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
