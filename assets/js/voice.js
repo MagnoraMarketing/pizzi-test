@@ -70,17 +70,25 @@
   // Start a session in aibooking → { publicKey, assistantId }. Falls back to
   // the direct publicKey/assistantId config when no widgetId is set.
   async function getCallConfig() {
-    if (!CFG.widgetId) return CFG.publicKey && CFG.assistantId ? { publicKey: CFG.publicKey, assistantId: CFG.assistantId } : null;
-    const res = await fetch(CFG.aibookingApi + "/api/widget/session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ publicId: CFG.widgetId })
-    });
-    if (!res.ok) throw new Error("aibooking session " + res.status);
-    const data = await res.json();
-    if (!data.vapi || !data.vapi.publicKey || !data.vapi.assistantId) throw new Error("aibooking session without vapi config");
-    session = { id: data.sessionId, startedAt: Date.now() };
-    return data.vapi;
+    const direct = CFG.publicKey && CFG.assistantId ? { publicKey: CFG.publicKey, assistantId: CFG.assistantId } : null;
+    if (!CFG.widgetId) return direct;
+    try {
+      const res = await fetch(CFG.aibookingApi + "/api/widget/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ publicId: CFG.widgetId })
+      });
+      if (!res.ok) throw new Error("aibooking session " + res.status);
+      const data = await res.json();
+      if (!data.vapi || !data.vapi.publicKey || !data.vapi.assistantId) throw new Error("aibooking session without vapi config");
+      session = { id: data.sessionId, startedAt: Date.now() };
+      return data.vapi;
+    } catch (err) {
+      // aibooking unreachable or agent not set up yet → call Vapi directly
+      // (the call then isn't logged as a session in aibooking).
+      if (direct) { console.warn("[Sofia] aibooking session failed, using direct Vapi config:", err); return direct; }
+      throw err;
+    }
   }
   // Close the aibooking session with the measured call length (idempotent there).
   function endSession() {
