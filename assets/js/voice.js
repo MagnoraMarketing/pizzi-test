@@ -112,5 +112,7 @@
   owner.addEventListener("click", e => { if (e.target === owner) closeOwner(); });
   $("#ownerTry").addEventListener("click", () => { closeOwner(); openPanel(); if (state === "idle") start(); });
 
+  window.PizziVoice = { open: openPanel, openAndStart: () => { openPanel(); if (state === "idle") start(); } };
+
   setState("idle"); say("idle");
 })();
