@@ -2,7 +2,13 @@
 (() => {
   "use strict";
 
+  // The agent is managed in aibooking.dk (customer "Pizzi (Valencia)", type
+  // samarbejde). Each call starts a session there, which returns the Vapi
+  // public key + assistant id and logs the call under Pizzi. publicKey /
+  // assistantId can still be set directly to bypass aibooking.
   const CFG = Object.assign({
+    aibookingApi: "https://aibooking-backendnew.vercel.app",
+    widgetId: "",
     publicKey: "",
     assistantId: "",
     firstMessage: "¡Ciao! Soy Sofia, de Pizzi. ¿Te preparo un pedido para recoger, te reservo mesa o te cuento qué pizzas tenemos?"
@@ -13,7 +19,8 @@
         log = $("#vLog"), callBtn = $("#vCall"), closeBtn = $("#vClose"),
         owner = $("#ownerModal");
 
-  let vapi = null, state = "idle"; // idle | connecting | live
+  let vapi = null, vapiKey = "", state = "idle"; // idle | connecting | live
+  let session = null; // aibooking usage session { id, startedAt }
 
   const STATUS = {
     idle: "Pulsa el botón y habla con Sofia",
@@ -60,12 +67,42 @@
     setTimeout(() => { if (!panel.classList.contains("is-open")) panel.hidden = true; }, 300);
   }
 
-  function ensureVapi() {
-    if (vapi) return vapi;
-    if (!window.Vapi || !CFG.publicKey || !CFG.assistantId) return null;
-    vapi = new window.Vapi(CFG.publicKey);
-    vapi.on("call-start", () => { setState("live"); say("listening"); });
-    vapi.on("call-end", () => { setState("idle"); say("ended"); orb.style.setProperty("--vol", 0); });
+  // Start a session in aibooking → { publicKey, assistantId }. Falls back to
+  // the direct publicKey/assistantId config when no widgetId is set.
+  async function getCallConfig() {
+    if (!CFG.widgetId) return CFG.publicKey && CFG.assistantId ? { publicKey: CFG.publicKey, assistantId: CFG.assistantId } : null;
+    const res = await fetch(CFG.aibookingApi + "/api/widget/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ publicId: CFG.widgetId })
+    });
+    if (!res.ok) throw new Error("aibooking session " + res.status);
+    const data = await res.json();
+    if (!data.vapi || !data.vapi.publicKey || !data.vapi.assistantId) throw new Error("aibooking session without vapi config");
+    session = { id: data.sessionId, startedAt: Date.now() };
+    return data.vapi;
+  }
+  // Close the aibooking session with the measured call length (idempotent there).
+  function endSession() {
+    if (!session) return;
+    const body = JSON.stringify({ sessionId: session.id, clientMeasuredDurationSeconds: Math.max(1, Math.round((Date.now() - session.startedAt) / 1000)) });
+    session = null;
+    const url = CFG.aibookingApi + "/api/widget/session/end";
+    try {
+      if (!(navigator.sendBeacon && navigator.sendBeacon(url, new Blob([body], { type: "text/plain" })))) {
+        fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true }).catch(() => {});
+      }
+    } catch (_) {}
+  }
+  addEventListener("pagehide", endSession);
+
+  function ensureVapi(publicKey) {
+    if (vapi && vapiKey === publicKey) return vapi;
+    if (!window.Vapi || !publicKey) return null;
+    vapi = new window.Vapi(publicKey);
+    vapiKey = publicKey;
+    vapi.on("call-start", () => { setState("live"); say("listening"); if (session) session.startedAt = Date.now(); });
+    vapi.on("call-end", () => { setState("idle"); say("ended"); orb.style.setProperty("--vol", 0); endSession(); });
     vapi.on("speech-start", () => say("speaking"));
     vapi.on("speech-end", () => { if (state === "live") say("listening"); });
     vapi.on("volume-level", v => orb.style.setProperty("--vol", Math.min(1, v * 1.6).toFixed(3)));
@@ -84,30 +121,33 @@
       console.warn("[Sofia]", e);
       const msg = String((e && (e.message || e.errorMsg || (e.error && e.error.message))) || e);
       setState("idle");
+      endSession();
       say(/permission|notallowed|microphone/i.test(msg) ? "mic" : "error");
     });
     return vapi;
   }
 
   async function start(loc) {
-    const v = ensureVapi();
-    if (!v) { say("nokey"); console.warn("[Sofia] Missing Vapi publicKey/assistantId in window.PIZZI_VOICE"); return; }
     setState("connecting"); say("connecting");
     log.innerHTML = "";
     try {
+      const conf = await getCallConfig();
+      const v = conf && ensureVapi(conf.publicKey);
+      if (!v) { setState("idle"); endSession(); say("nokey"); console.warn("[Sofia] No Vapi config (window.PIZZI_VOICE.widgetId or publicKey/assistantId)"); return; }
       const overrides = {};
       if (loc) {
         overrides.firstMessage = `¡Ciao! Soy Sofia, de ${loc.name}. Perfetto, preparamos tu pedido para recoger aquí. ¿Qué pizzas te apetecen?`;
         overrides.variableValues = { location: loc.name, location_id: loc.id };
       } else if (CFG.firstMessage) overrides.firstMessage = CFG.firstMessage;
-      await v.start(CFG.assistantId, overrides);
+      await v.start(conf.assistantId, overrides);
     } catch (e) {
       console.warn("[Sofia]", e);
       setState("idle");
+      endSession();
       say(/permission|notallowed/i.test(String(e && e.name || e)) ? "mic" : "error");
     }
   }
-  function stop() { try { vapi && vapi.stop(); } catch (_) {} setState("idle"); }
+  function stop() { try { vapi && vapi.stop(); } catch (_) {} setState("idle"); endSession(); }
 
   fab.addEventListener("click", () => panel.classList.contains("is-open") ? closePanel() : openPanel());
   closeBtn.addEventListener("click", closePanel);
