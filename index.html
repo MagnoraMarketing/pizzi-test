@@ -193,7 +193,7 @@
 
 <section class="vpanel" id="vPanel" hidden aria-label="Asistente de voz Sofia">
   <header class="vpanel__head">
-    <div><b>Sofia</b><span>Asistente de voz de Pizzi</span></div>
+    <div><b>Sofia</b><span id="vSub">Asistente de voz de Pizzi</span></div>
     <span class="vbadge">Demo</span>
     <button class="vpanel__x" id="vClose" type="button" aria-label="Cerrar">×</button>
   </header>
@@ -223,6 +223,28 @@
     <div class="owner__btns">
       <button class="btn btn--red" id="ownerTry" type="button">Probar a Sofia ahora</button>
       <a class="btn btn--line" href="https://aibooking.dk" target="_blank" rel="noopener">Hablar con aibooking.dk →</a>
+    </div>
+  </div>
+</div>
+
+<div class="owner locm" id="locModal" hidden role="dialog" aria-modal="true" aria-labelledby="locName">
+  <div class="owner__card locm__card">
+    <button class="owner__x" id="locClose" type="button" aria-label="Cerrar">×</button>
+    <p class="script">Il tuo forno</p>
+    <h2 id="locName">Pizzi</h2>
+    <p class="locm__status" id="locStatus"></p>
+    <div class="locm__info">
+      <div><span>Dirección</span><b id="locAddr"></b></div>
+      <div><span>Teléfono</span><a id="locTel" href="#"></a></div>
+    </div>
+    <div class="hours" id="locHours"></div>
+    <div class="locm__order">
+      <p id="locOrderTxt"></p>
+      <button class="btn btn--red" id="locOrder" type="button">Pedir aquí con Sofia</button>
+    </div>
+    <div class="owner__btns">
+      <a class="btn btn--line" id="locMaps" href="#" target="_blank" rel="noopener">Cómo llegar →</a>
+      <a class="btn btn--line" id="locCall" href="#">Llamar</a>
     </div>
   </div>
 </div>

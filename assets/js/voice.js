@@ -81,13 +81,18 @@
     return vapi;
   }
 
-  async function start() {
+  async function start(loc) {
     const v = ensureVapi();
     if (!v) { say("nokey"); console.warn("[Sofia] Missing Vapi publicKey/assistantId in window.PIZZI_VOICE"); return; }
     setState("connecting"); say("connecting");
     log.innerHTML = "";
     try {
-      await v.start(CFG.assistantId, CFG.firstMessage ? { firstMessage: CFG.firstMessage } : undefined);
+      const overrides = {};
+      if (loc) {
+        overrides.firstMessage = `¡Ciao! Soy Sofia, de ${loc.name}. Perfetto, preparamos tu pedido para recoger aquí. ¿Qué pizzas te apetecen?`;
+        overrides.variableValues = { location: loc.name, location_id: loc.id };
+      } else if (CFG.firstMessage) overrides.firstMessage = CFG.firstMessage;
+      await v.start(CFG.assistantId, overrides);
     } catch (e) {
       console.warn("[Sofia]", e);
       setState("idle");
@@ -112,7 +117,15 @@
   owner.addEventListener("click", e => { if (e.target === owner) closeOwner(); });
   $("#ownerTry").addEventListener("click", () => { closeOwner(); openPanel(); if (state === "idle") start(); });
 
-  window.PizziVoice = { open: openPanel, openAndStart: () => { openPanel(); if (state === "idle") start(); } };
+  const sub = $("#vSub");
+  window.PizziVoice = {
+    open: openPanel,
+    openAndStart: loc => {
+      sub.textContent = loc ? "Pedido para recoger en " + loc.name : "Asistente de voz de Pizzi";
+      openPanel();
+      if (state === "idle") start(loc);
+    }
+  };
 
   setState("idle"); say("idle");
 })();

@@ -275,4 +275,14 @@ a.quick__item:hover{background:var(--pink-l)}
 .owner__btns{display:flex;gap:12px;flex-wrap:wrap}
 @media (max-width:600px){.owner__grid{grid-template-columns:1fr}}
 .owner[hidden],.vpanel[hidden]{display:none!important}
+.loc{font:inherit;color:inherit;text-align:left;cursor:pointer;width:100%}
+.locm__card{width:min(560px,100%)}
+.locm__status{display:inline-flex;align-items:center;gap:10px;margin:0 0 16px;padding:7px 14px;border-radius:99px;background:var(--pink-l);font-weight:600;font-size:15px;color:var(--red-d)}
+.locm__info{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-bottom:14px}
+.locm__info span{display:block;font-family:var(--f-cond);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--red)}
+.locm__info b,.locm__info a{font-weight:500;text-decoration:none}
+.locm__order{margin:4px 0 16px;padding:18px;border-radius:20px;background:var(--red);color:var(--pink-l)}
+.locm__order p{margin:0 0 12px}
+.locm__order .btn{background:var(--pink);color:var(--red);width:100%}
+@media (max-width:480px){.locm__info{grid-template-columns:1fr}}
 @keyframes blink{50%{opacity:0}}
