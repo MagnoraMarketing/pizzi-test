@@ -29,6 +29,7 @@
     <a href="#locales">Locales</a>
   </nav>
   <div class="nav__right">
+    <button type="button" class="nav__cart" id="navCart" aria-label="Ver pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="nav__cart-b" id="cartBadge">0</span><span class="nav__cart-t" id="navCartTotal">Pedido</span></button>
     <a href="tel:+34744784737" class="nav__cta"><span class="dot" data-live-dot></span><span data-live-short>Llamar</span></a>
     <button class="nav__burger" id="navBurger" type="button" aria-controls="navLinks" aria-expanded="false" aria-label="Abrir menú"><i></i><i></i></button>
   </div>
@@ -45,7 +46,7 @@
         <h1 class="hero__title" id="heroTitle">Auténtica pizza <em>napoletana</em></h1>
         <p class="hero__lead">Masa de 48 horas, horno italiano a 485 °C y nuestra caja de cuadros. Pide para recoger o reserva mesa en un minuto.</p>
         <div class="hero__btns">
-          <a class="btn btn--light" href="#carta">Ver la carta</a>
+          <a class="btn btn--light" href="#carta">Pedir online</a>
           <button class="btn btn--ghost" type="button" data-sofia>Pedir con Sofia</button>
         </div>
       </div>
@@ -193,7 +194,7 @@
 
 <section class="vpanel" id="vPanel" hidden aria-label="Asistente de voz Sofia">
   <header class="vpanel__head">
-    <div><b>Sofia</b><span>Asistente de voz de Pizzi</span></div>
+    <div><b>Sofia</b><span id="vSub">Asistente de voz de Pizzi</span></div>
     <span class="vbadge">Demo</span>
     <button class="vpanel__x" id="vClose" type="button" aria-label="Cerrar">×</button>
   </header>
@@ -227,9 +228,65 @@
   </div>
 </div>
 
+<div class="owner locm" id="locModal" hidden role="dialog" aria-modal="true" aria-labelledby="locName">
+  <div class="owner__card locm__card">
+    <button class="owner__x" id="locClose" type="button" aria-label="Cerrar">×</button>
+    <p class="script">Il tuo forno</p>
+    <h2 id="locName">Pizzi</h2>
+    <p class="locm__status" id="locStatus"></p>
+    <div class="locm__info">
+      <div><span>Dirección</span><b id="locAddr"></b></div>
+      <div><span>Teléfono</span><a id="locTel" href="#"></a></div>
+    </div>
+    <div class="hours" id="locHours"></div>
+    <div class="locm__order">
+      <p id="locOrderTxt"></p>
+      <div class="locm__btns">
+        <button class="btn" id="locOrder" type="button">Pedir con Sofia (voz)</button>
+        <button class="btn btn--ghost" id="locWeb" type="button">Pedir en la web</button>
+      </div>
+    </div>
+    <div class="owner__btns">
+      <a class="btn btn--line" id="locMaps" href="#" target="_blank" rel="noopener">Cómo llegar →</a>
+      <a class="btn btn--line" id="locCall" href="#">Llamar</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ORDER (demo, Stripe-ready) ============ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="sheet" id="addSheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetName">
+  <div class="sheet__card">
+    <button class="owner__x sheet__x" id="sheetClose" type="button" aria-label="Cerrar">×</button>
+    <div class="sheet__top"><div class="sheet__img" id="sheetImg"></div><div><h2 id="sheetName"></h2><p id="sheetIng"></p></div></div>
+    <p class="label">Extras</p>
+    <div class="chks" id="sheetExtras"></div>
+    <label class="label" for="sheetNote">Nota <span class="muted">(opcional)</span></label>
+    <input class="field" id="sheetNote" maxlength="120" placeholder="Sin cebolla, bien hecha…">
+    <div class="row sheet__foot">
+      <div class="qty qty--lg"><button type="button" id="sheetMinus" aria-label="Menos">−</button><span id="sheetQty">1</span><button type="button" id="sheetPlus" aria-label="Más">+</button></div>
+      <button class="btn btn--red" type="button" id="sheetAdd">Añadir</button>
+    </div>
+  </div>
+</div>
+
+<aside class="cart" id="cart" hidden role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+  <div class="cart__panel">
+    <header class="cart__head">
+      <h2 id="cartTitle">Tu pedido</h2>
+      <button class="owner__x" id="cartClose" type="button" aria-label="Cerrar">×</button>
+    </header>
+    <ol class="cart__steps" aria-label="Pasos"><li>Pedido</li><li>Recogida</li><li>Datos</li><li>Pago</li></ol>
+    <div class="cart__body" id="cartBody"></div>
+    <footer class="cart__foot" id="cartFoot"></footer>
+  </div>
+</aside>
+
 <script>window.PIZZI_VOICE={publicKey:"",assistantId:"36653b2a-795e-422d-9616-c11aa560fd0c"};</script>
 <script src="assets/vendor/vapi-web-2.7.1.min.js" defer></script>
 <script src="assets/js/voice.js" defer></script>
+<script src="assets/js/order.js" defer></script>
 
 </body>
 </html>

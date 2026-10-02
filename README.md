@@ -6,6 +6,7 @@ Hjemmeside til Pizzi Pizzería med carta, live åbningsstatus for alle 5 steder 
 - `assets/css/style.css`: design
 - `assets/js/main.js`: carta med filtre, locales, mobilmenu og live åben/lukket-status (Europe/Madrid)
 - `assets/js/voice.js` + `assets/vendor/`: Sofia voice-widget (Vapi web SDK 2.7.1) og demo-boksen om aibooking.dk. Sæt `publicKey` i `window.PIZZI_VOICE` i `index.html`.
+- `assets/js/order.js`: demo-bestilling (kurv → afhentning → oplysninger → betaling → bekræftelse). Betalingen er en Stripe-lignende demo; se kommentaren ved `Payments` for at koble rigtig Stripe på (PaymentIntent + Payment Element i `#payElement`). Ordrer fra Sofia (`create_order` tool-call) vises automatisk i kurven.
 - `voice-agent/`: prompts og fiktive værktøjsdefinitioner til Vapi
 - `assets/img/`: fotos
 

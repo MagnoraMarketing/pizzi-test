@@ -70,6 +70,14 @@
     vapi.on("speech-end", () => { if (state === "live") say("listening"); });
     vapi.on("volume-level", v => orb.style.setProperty("--vol", Math.min(1, v * 1.6).toFixed(3)));
     vapi.on("message", m => {
+      // create_order from Sofia → show the order on screen for review/payment (order.js)
+      const calls = m && m.type === "tool-calls" ? (m.toolCallList || m.toolCalls || []).map(c => c.function || c)
+        : m && m.type === "function-call" && m.functionCall ? [{ name: m.functionCall.name, arguments: m.functionCall.parameters }] : [];
+      calls.filter(c => c && c.name === "create_order").forEach(c => {
+        let args = c.arguments || c.parameters || {};
+        if (typeof args === "string") { try { args = JSON.parse(args); } catch (_) { args = {}; } }
+        dispatchEvent(new CustomEvent("pizzi:voice-order", { detail: args }));
+      });
       if (m && m.type === "transcript" && m.transcript) addLine(m.role === "user" ? "user" : "bot", m.transcript, m.transcriptType === "partial");
     });
     vapi.on("error", e => {
@@ -81,13 +89,18 @@
     return vapi;
   }
 
-  async function start() {
+  async function start(loc) {
     const v = ensureVapi();
     if (!v) { say("nokey"); console.warn("[Sofia] Missing Vapi publicKey/assistantId in window.PIZZI_VOICE"); return; }
     setState("connecting"); say("connecting");
     log.innerHTML = "";
     try {
-      await v.start(CFG.assistantId, CFG.firstMessage ? { firstMessage: CFG.firstMessage } : undefined);
+      const overrides = {};
+      if (loc) {
+        overrides.firstMessage = `¡Ciao! Soy Sofia, de ${loc.name}. Perfetto, preparamos tu pedido para recoger aquí. ¿Qué pizzas te apetecen?`;
+        overrides.variableValues = { location: loc.name, location_id: loc.id };
+      } else if (CFG.firstMessage) overrides.firstMessage = CFG.firstMessage;
+      await v.start(CFG.assistantId, overrides);
     } catch (e) {
       console.warn("[Sofia]", e);
       setState("idle");
@@ -112,7 +125,15 @@
   owner.addEventListener("click", e => { if (e.target === owner) closeOwner(); });
   $("#ownerTry").addEventListener("click", () => { closeOwner(); openPanel(); if (state === "idle") start(); });
 
-  window.PizziVoice = { open: openPanel, openAndStart: () => { openPanel(); if (state === "idle") start(); } };
+  const sub = $("#vSub");
+  window.PizziVoice = {
+    open: openPanel,
+    openAndStart: loc => {
+      sub.textContent = loc ? "Pedido para recoger en " + loc.name : "Asistente de voz de Pizzi";
+      openPanel();
+      if (state === "idle") start(loc);
+    }
+  };
 
   setState("idle"); say("idle");
 })();

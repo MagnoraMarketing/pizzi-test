@@ -85,27 +85,76 @@
   }
 
   /* ----------------------------------------------------------------- render */
+  const hoursTxt = r => r.length ? r.map(x => x[0] + "–" + hhmm(toMin(x[1])).replace(/^00:00$/, "24:00")).join(" · ") : "Cerrado";
+  const weekHtml = l => { const today = madridNow().day; return l.h.map((r, i) => `
+      <div class="${i === today ? "is-today" : ""}"><span>${DIAS[i]}${i === today ? " · hoy" : ""}</span><span>${hoursTxt(r)}</span></div>`).join(""); };
+
   function renderLocales() {
     $("#localesGrid").innerHTML = LOCALES.map((l, i) => `
-      <a class="loc${i === 0 ? " is-main" : ""}" href="${l.maps}" target="_blank" rel="noopener">
+      <button type="button" class="loc${i === 0 ? " is-main" : ""}" data-loc="${l.id}" aria-haspopup="dialog">
         <span class="status" data-status="${l.id}"><span class="dot"></span><span class="status__txt">…</span></span>
         <h3>${esc(l.n)}</h3><p>${esc(l.d)}</p><p>${esc(l.tel)}</p>
-        <span class="loc__go">Cómo llegar →</span>
-      </a>`).join("");
-    const today = madridNow().day;
-    $("#hoursMercado").innerHTML = LOCALES[0].h.map((r, i) => `
-      <div class="${i === today ? "is-today" : ""}"><span>${DIAS[i]}${i === today ? " · hoy" : ""}</span><span>${r.length ? r.map(x => x[0] + "–" + hhmm(toMin(x[1])).replace("00:00", "24:00")).join(" · ") : "Cerrado"}</span></div>`).join("");
+        <span class="loc__go">Pedir aquí →</span>
+      </button>`).join("");
+    $("#hoursMercado").innerHTML = weekHtml(LOCALES[0]);
+    $$("[data-loc]").forEach(b => b.addEventListener("click", () => openLoc(b.dataset.loc)));
   }
+
+  /* location modal: address, hours, order here with Sofia */
+  const locModal = $("#locModal");
+  let locReturn = null, locCurrent = null;
+  function openLoc(id) {
+    const l = LOCALES.find(x => x.id === id);
+    if (!l) return;
+    locCurrent = l;
+    locReturn = document.activeElement;
+    $("#locName").textContent = "Pizzi " + l.n;
+    const st = status(l);
+    $("#locStatus").innerHTML = `<span class="dot ${st.open ? "is-open" : "is-closed"}"></span><span>${esc(st.txt)}</span>`;
+    $("#locAddr").textContent = l.d.replace(" · ", ", ") + ", València";
+    $("#locTel").textContent = l.tel;
+    $("#locTel").href = "tel:" + l.tel.replace(/\s/g, "");
+    $("#locCall").href = "tel:" + l.tel.replace(/\s/g, "");
+    $("#locMaps").href = l.maps;
+    $("#locHours").innerHTML = weekHtml(l);
+    $("#locOrderTxt").textContent = st.open
+      ? "¿Pedimos para recoger aquí? Sofia te toma el pedido por voz en un minuto."
+      : "Ahora está cerrado, pero Sofia puede dejarte el pedido programado para cuando abra.";
+    locModal.hidden = false;
+    requestAnimationFrame(() => locModal.classList.add("is-open"));
+    $("#locOrder").focus();
+  }
+  function closeLoc() {
+    locModal.classList.remove("is-open");
+    setTimeout(() => { locModal.hidden = true; }, 300);
+    if (locReturn) locReturn.focus();
+  }
+  $("#locClose").addEventListener("click", closeLoc);
+  locModal.addEventListener("click", e => { if (e.target === locModal) closeLoc(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !locModal.hidden) closeLoc(); });
+  $("#locWeb").addEventListener("click", () => {
+    const l = locCurrent;
+    closeLoc();
+    if (window.PizziOrder) window.PizziOrder.startAt(l.id);
+  });
+  $("#locOrder").addEventListener("click", () => {
+    const l = locCurrent;
+    closeLoc();
+    if (window.PizziVoice) window.PizziVoice.openAndStart({ id: l.id, name: "Pizzi " + l.n });
+  });
+
   function renderCarta() {
     const drinkCards = DRINKS.map(([n, p]) => `
       <article class="card" data-type="bebida"><div class="card__img"><div class="card__drink">${esc(n[0])}</div></div>
-        <div class="card__body"><div class="card__top"><h3>${esc(n)}</h3><span class="card__price">${eur(p)}</span></div><p>${n === "Agua" ? "Botella 50 cl" : "Lata 33 cl"}</p></div></article>`);
+        <div class="card__body"><div class="card__top"><h3>${esc(n)}</h3><span class="card__price">${eur(p)}</span></div><p>${n === "Agua" ? "Botella 50 cl" : "Lata 33 cl"}</p></div>
+        <button type="button" class="card__add" data-add="${esc(n)}" aria-label="Añadir ${esc(n)} al pedido">+</button></article>`);
     const pizzaCards = PIZZAS.map(([n, t, ing, p, tag, look]) => {
       const visual = look.startsWith("img:")
         ? `<img src="assets/img/${look.slice(4)}" alt="Pizza ${esc(n.toLowerCase())}" loading="lazy">`
         : `<div class="card__disc" style="background:${LOOKS[look]}"></div>`;
       return `<article class="card" data-type="${t}"><div class="card__img">${visual}</div>
-        <div class="card__body"><div class="card__top"><h3>${esc(n)}</h3><span class="card__price">${eur(p)}</span></div><p>${esc(ing)}</p>${tag ? `<span class="card__tag">${esc(tag)}</span>` : ""}</div></article>`;
+        <div class="card__body"><div class="card__top"><h3>${esc(n)}</h3><span class="card__price">${eur(p)}</span></div><p>${esc(ing)}</p>${tag ? `<span class="card__tag">${esc(tag)}</span>` : ""}</div>
+        <button type="button" class="card__add" data-add="${esc(n)}" aria-label="Añadir ${esc(n)} al pedido">+</button></article>`;
     });
     $("#cartaGrid").innerHTML = pizzaCards.concat(drinkCards).join("");
     $$(".tabs [data-filter]").forEach(b => b.addEventListener("click", () => {
@@ -114,6 +163,9 @@
       $$("#cartaGrid .card").forEach(c => { c.hidden = f !== "all" && c.dataset.type !== f; });
     }));
   }
+
+  // shared with order.js
+  window.Pizzi = { LOCALES, PIZZAS, DRINKS, DIAS, LOOKS, status, madridNow, toMin, hhmm, eur, esc };
 
   /* ------------------------------------------------------------------ boot */
   renderLocales();
