@@ -9,3 +9,5 @@ Ny hjemmeside til Pizzi Pizzería med scroll-styret "video"-effekt. Den er ren H
 
 Lokalt: `python3 -m http.server` og åbn http://localhost:8000.
 Respekterer `prefers-reduced-motion`. Uden JavaScript vises en statisk version.
+
+Den tidligere Forno Rosso-side ligger nu i `forno-rosso/`.
