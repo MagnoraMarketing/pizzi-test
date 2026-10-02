@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" class="no-motion">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -15,158 +15,123 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Big+Shoulders+Display:wght@700;900&family=Caveat:wght@600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/pistachiola.webp">
 <link rel="stylesheet" href="assets/css/style.css">
-<script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.remove("no-motion")</script>
 </head>
 <body>
 
-<!-- Intro loader -->
-<div class="loader" id="loader" aria-hidden="true">
-  <div class="loader__count"><span id="loaderNum">0</span><small>%</small></div>
-  <div class="loader__word">PIZZI</div>
-  <div class="loader__bar"><i id="loaderBar"></i></div>
-</div>
-
-<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#carta">Saltar a la carta</a>
 
 <header class="nav" id="nav">
   <a href="#top" class="nav__logo" aria-label="Pizzi, inicio">PIZZI</a>
-  <nav class="nav__links" aria-label="Principal">
-    <a href="#historia">La historia</a>
+  <nav class="nav__links" id="navLinks" aria-label="Principal">
     <a href="#carta">Carta</a>
+    <a href="#como">Cómo la hacemos</a>
     <a href="#mercado">Mercado Central</a>
     <a href="#locales">Locales</a>
   </nav>
-  <a href="tel:+34744784737" class="nav__cta"><span class="dot" data-live-dot></span><span data-live-short>Llamar</span></a>
+  <div class="nav__right">
+    <a href="tel:+34744784737" class="nav__cta"><span class="dot" data-live-dot></span><span data-live-short>Llamar</span></a>
+    <button class="nav__burger" id="navBurger" type="button" aria-controls="navLinks" aria-expanded="false" aria-label="Abrir menú"><i></i><i></i></button>
+  </div>
 </header>
 
 <main id="top">
 
-  <!-- ============ SCENE 1 · HERO ============ -->
-  <section class="hero scene" data-scene="hero" aria-label="Pizzi">
-    <div class="sticky">
-      <div class="hero__bg"></div>
-
-      <div class="hero__word" aria-hidden="true">
-        <span class="hw hw--l">PI</span><span class="hw hw--r">ZZI</span>
-      </div>
-
-      <div class="hero__ingredients" aria-hidden="true" id="ingredients"></div>
-
-      <div class="hero__pizza">
-        <img src="assets/img/pistachiola.webp" alt="Pizza Pistachiola de Pizzi recién salida del horno" width="720" height="680" fetchpriority="high">
-        <div class="hero__steam" aria-hidden="true"><i></i><i></i><i></i></div>
-      </div>
-
-      <div class="hero__badge" aria-hidden="true">
-        <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
-          <text textLength="486" lengthAdjust="spacingAndGlyphs"><textPath href="#circ" textLength="486" lengthAdjust="spacingAndGlyphs">PIZZA NAPOLETANA · HORNO ITALIANO · VALENCIA · </textPath></text></svg>
-        <div><small>desde</small><b>6,90€</b><small>31 cm</small></div>
-      </div>
-
-      <p class="hero__sticker" aria-hidden="true">Llévame a casa<br>que estoy<br>caliente</p>
-
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero__word" aria-hidden="true">PIZZI</div>
+    <div class="hero__inner">
       <div class="hero__copy">
         <p class="kicker">Mercado Central · Valencia</p>
-        <h1 class="hero__title">
-          <span class="line"><span>Auténtica</span></span>
-          <span class="line"><span>pizza</span></span>
-          <span class="line"><span><em>napoletana</em></span></span>
-        </h1>
+        <h1 class="hero__title" id="heroTitle">Auténtica pizza <em>napoletana</em></h1>
+        <p class="hero__lead">Masa de 48 horas, horno italiano a 485 °C y nuestra caja de cuadros. Pide para recoger o reserva mesa en un minuto.</p>
         <div class="hero__btns">
           <a class="btn btn--light" href="#carta">Ver la carta</a>
-          <a class="btn btn--ghost" href="#mercado">Cómo llegar</a>
+          <button class="btn btn--ghost" type="button" data-sofia>Pedir con Sofia</button>
         </div>
       </div>
-
-      <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
+      <div class="hero__media">
+        <img class="hero__pizza" src="assets/img/pistachiola.webp" alt="Pizza Pistachiola de Pizzi recién salida del horno" width="720" height="680" fetchpriority="high">
+        <div class="hero__badge" aria-hidden="true"><small>desde</small><b>6,90€</b><small>pizza 31 cm</small></div>
+      </div>
     </div>
+  </section>
+
+  <!-- quick info -->
+  <section class="quick" aria-label="Información rápida">
+    <a class="quick__item" href="#mercado"><span class="quick__k">Mercado Central</span><span class="quick__v" data-status="mercado"><span class="dot"></span><span class="status__txt">…</span></span></a>
+    <a class="quick__item" href="#carta"><span class="quick__k">Carta</span><span class="quick__v">13 pizzas · desde 6,90 €</span></a>
+    <div class="quick__item"><span class="quick__k">Para recoger</span><span class="quick__v">Lista en 10–15 min · pago en el local</span></div>
+    <a class="quick__item" href="#locales"><span class="quick__k">Locales</span><span class="quick__v">5 hornos en Valencia</span></a>
   </section>
 
   <!-- marquee -->
   <div class="marquee" aria-hidden="true">
     <div class="checker"></div>
-    <div class="marquee__track" data-marquee>
+    <div class="marquee__track">
+      <span>Horno italiano</span><b>✦</b><span>31 cm de felicidad</span><b>✦</b><span>Mozzarella vegana disponible</span><b>✦</b><span>Llévame a casa que estoy caliente</span><b>✦</b><span>Masa de 48 horas</span><b>✦</b>
       <span>Horno italiano</span><b>✦</b><span>31 cm de felicidad</span><b>✦</b><span>Mozzarella vegana disponible</span><b>✦</b><span>Llévame a casa que estoy caliente</span><b>✦</b><span>Masa de 48 horas</span><b>✦</b>
     </div>
   </div>
 
-  <!-- ============ SCENE 2 · FILM / STORY ============ -->
-  <section class="film scene" data-scene="film" id="historia" aria-label="La historia de una Pizzi">
-    <div class="sticky">
-      <div class="film__frames">
-        <figure class="frame" data-frame="0"><img src="assets/img/pizza.jpg" alt="Pizza napolitana con jamón, champiñones y albahaca en su caja" loading="lazy"></figure>
-        <figure class="frame" data-frame="1"><img src="assets/img/mesa.jpg" alt="Pizzas Pizzi sobre mantel de cuadros rosas" loading="lazy"></figure>
-        <figure class="frame frame--heat" data-frame="2"><img src="assets/img/pizza.jpg" alt="" loading="lazy"></figure>
-        <figure class="frame" data-frame="3"><img src="assets/img/caja.jpg" alt="Caja de cuadros de Pizzi: llévame a casa que estoy caliente" loading="lazy"></figure>
+  <!-- ============ CARTA ============ -->
+  <section class="carta" id="carta" aria-labelledby="cartaTitle">
+    <div class="wrap">
+      <header class="sec-head">
+        <div>
+          <p class="script">Le preferite</p>
+          <h2 id="cartaTitle">La carta</h2>
+          <p class="sec-sub">Todas las pizzas miden 31 cm. Mozzarella vegana +2 €.</p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Filtrar carta">
+          <button role="tab" aria-selected="true" data-filter="all">Todas</button>
+          <button role="tab" aria-selected="false" data-filter="especial">Especiales</button>
+          <button role="tab" aria-selected="false" data-filter="clasica">Clásicas</button>
+          <button role="tab" aria-selected="false" data-filter="bebida">Bebidas</button>
+        </div>
+      </header>
+      <div class="carta__grid" id="cartaGrid"></div>
+      <div class="extras">
+        <h3>Extras para cualquier pizza</h3>
+        <ul><li>Mozzarella vegana <b>+2,00 €</b></li><li>Extra de mozzarella <b>+1,50 €</b></li><li>Extra de crema de burrata <b>+2,00 €</b></li><li>Aceite picante <b>gratis</b></li></ul>
       </div>
-      <div class="film__shade"></div>
-      <div class="letterbox letterbox--t"></div><div class="letterbox letterbox--b"></div>
+    </div>
+  </section>
 
-      <div class="hud" aria-hidden="true">
-        <div class="hud__tl"><span class="rec"></span> REC <span class="hud__file">PIZZI_MERCADO.MOV</span></div>
-        <div class="hud__tr"><span id="tc">00:00:00:00</span></div>
-        <div class="hud__corners"><i></i><i></i><i></i><i></i></div>
-      </div>
+  <!-- ============ CÓMO LA HACEMOS ============ -->
+  <section class="como" id="como" aria-labelledby="comoTitle">
+    <div class="wrap">
+      <header class="sec-head"><div><p class="script">Fatta a mano</p><h2 id="comoTitle">Cómo hacemos tu pizza</h2></div></header>
+      <ol class="steps">
+        <li><img src="assets/img/pizza.jpg" alt="Pizza napolitana con jamón, champiñones y albahaca" loading="lazy"><div><span>01</span><h3>48 horas de masa</h3><p>Harina italiana, agua, sal y tiempo. Fermentación lenta para un borde que se infla como debe.</p></div></li>
+        <li><img src="assets/img/mesa.jpg" alt="Pizzas Pizzi sobre mantel de cuadros rosas" loading="lazy"><div><span>02</span><h3>Pomodoro &amp; fior di latte</h3><p>Tomate, mozzarella fresca, albahaca y crema de burrata. Nada más, nada menos.</p></div></li>
+        <li><img src="assets/img/pizza.jpg" alt="" loading="lazy" class="is-warm"><div><span>03</span><h3>485 °C · 90 segundos</h3><p>Horno italiano a temperatura napolitana. Leopardato por fuera, tierna por dentro.</p></div></li>
+        <li><img src="assets/img/caja.jpg" alt="Caja de cuadros de Pizzi" loading="lazy"><div><span>04</span><h3>A tus manos</h3><p>En nuestra caja de cuadros de siempre. De la masa a tus manos en unos 10 minutos.</p></div></li>
+      </ol>
+    </div>
+  </section>
 
-      <div class="chapters">
-        <article class="chapter" data-ch="0">
-          <span class="chapter__n">01 — La masa</span>
-          <h2>48 horas<br>de paciencia</h2>
-          <p>Harina italiana, agua, sal y tiempo. Fermentación lenta para un cornicione que se infla como debe.</p>
-        </article>
-        <article class="chapter" data-ch="1">
-          <span class="chapter__n">02 — El cariño</span>
-          <h2>Pomodoro<br>&amp; fior di latte</h2>
-          <p>Tomate pelado a mano, mozzarella fresca, albahaca y crema de burrata. Nada más, nada menos.</p>
-        </article>
-        <article class="chapter" data-ch="2">
-          <span class="chapter__n">03 — El fuego</span>
-          <h2><span class="big-num" id="degrees">485</span>°C<br>90 segundos</h2>
-          <p>Horno italiano a temperatura napolitana. Leopardato por fuera, tierna por dentro.</p>
-        </article>
-        <article class="chapter" data-ch="3">
-          <span class="chapter__n">04 — La caja</span>
-          <h2>Llévame a casa<br>que estoy caliente</h2>
-          <p>Nuestra caja de cuadros de siempre. Diez minutos de la masa a tus manos.</p>
-        </article>
+  <!-- ============ LLÉVAME A CASA ============ -->
+  <section class="takeaway" aria-labelledby="takeTitle">
+    <div class="wrap takeaway__inner">
+      <div>
+        <p class="script">Da portare via</p>
+        <h2 id="takeTitle">Llévame a casa que estoy caliente</h2>
+        <p>Haz tu pedido, elige hora y pásate a recogerlo recién salido del horno. Pagas en el local. Sofia te atiende por voz en español, inglés o italiano.</p>
+        <div class="hero__btns hero__btns--left">
+          <button class="btn btn--red" type="button" data-sofia>Pedir con Sofia</button>
+          <a class="btn btn--line" href="tel:+34744784737">Llamar al local</a>
+        </div>
       </div>
-
-      <div class="timeline" aria-hidden="true">
-        <div class="timeline__bar"><i id="tlFill"></i></div>
-        <ol><li>Masa</li><li>Cariño</li><li>Fuego</li><li>Caja</li></ol>
-      </div>
+      <img src="assets/img/caja.jpg" alt="Caja de Pizzi: llévame a casa que estoy caliente" loading="lazy">
     </div>
   </section>
 
   <!-- stats -->
   <section class="stats" aria-label="Pizzi en números">
-    <div class="stat"><b data-count="485">0</b><span>°C en el horno</span></div>
-    <div class="stat"><b data-count="90">0</b><span>segundos de cocción</span></div>
-    <div class="stat"><b data-count="31">0</b><span>cm de felicidad</span></div>
-    <div class="stat"><b data-count="5">0</b><span>hornos en Valencia</span></div>
-  </section>
-
-  <!-- ============ SCENE 3 · HORIZONTAL MENU ============ -->
-  <section class="carta scene" data-scene="carta" id="carta" aria-label="Carta">
-    <div class="sticky">
-      <header class="carta__head">
-        <p class="script">Le preferite</p>
-        <h2>La carta</h2>
-        <p class="carta__hint">Pizza mediana de 31 cm · mozzarella vegana +2 €</p>
-      </header>
-      <div class="carta__track" id="cartaTrack"></div>
-      <div class="carta__progress" aria-hidden="true"><i id="cartaFill"></i></div>
-    </div>
-  </section>
-
-  <!-- ============ SCENE 4 · CINEMA REVEAL ============ -->
-  <section class="reveal scene" data-scene="reveal" aria-label="Da portare via">
-    <div class="sticky">
-      <div class="reveal__media"><img src="assets/img/mesa.jpg" alt="Mesa con pizzas Pizzi en sus cajas de cuadros" loading="lazy"></div>
-      <h2 class="reveal__title" aria-label="Llévame a casa que estoy caliente">
-        <span>Llévame</span><span>a casa</span><span>que estoy</span><span>caliente</span>
-      </h2>
-    </div>
+    <div class="stat"><b data-count="485">485</b><span>°C en el horno</span></div>
+    <div class="stat"><b data-count="90">90</b><span>segundos de cocción</span></div>
+    <div class="stat"><b data-count="31">31</b><span>cm de felicidad</span></div>
+    <div class="stat"><b data-count="5">5</b><span>hornos en Valencia</span></div>
   </section>
 
   <!-- ============ MERCADO ============ -->
@@ -219,5 +184,52 @@
 </footer>
 
 <script src="assets/js/main.js" defer></script>
+<!-- ============ VOICE WIDGET · Sofia (Vapi) ============ -->
+<button class="vfab" id="vFab" type="button" aria-controls="vPanel" aria-expanded="false">
+  <span class="vfab__ring" aria-hidden="true"></span>
+  <span class="vfab__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+  <span class="vfab__txt">Habla con Sofia</span>
+</button>
+
+<section class="vpanel" id="vPanel" hidden aria-label="Asistente de voz Sofia">
+  <header class="vpanel__head">
+    <div><b>Sofia</b><span>Asistente de voz de Pizzi</span></div>
+    <span class="vbadge">Demo</span>
+    <button class="vpanel__x" id="vClose" type="button" aria-label="Cerrar">×</button>
+  </header>
+  <div class="vorb" id="vOrb" aria-hidden="true"><img src="assets/img/pistachiola.webp" alt=""></div>
+  <p class="vstatus" id="vStatus" role="status" aria-live="polite"></p>
+  <div class="vlog" id="vLog" aria-live="polite"></div>
+  <p class="vhint">Pide para recoger, reserva mesa o pregunta por la carta. Español, English, italiano…</p>
+  <button class="btn btn--red vcall" id="vCall" type="button">Hablar con Sofia</button>
+  <button class="vpowered" type="button" data-owner>Demo creada por <b>aibooking.dk</b> · ¿Eres de Pizzi?</button>
+</section>
+
+<button class="demo-pill" type="button" data-owner><span class="demo-pill__dot"></span><span>Demo · <b>aibooking.dk</b></span><span class="demo-pill__more">¿Eres el dueño de Pizzi?</span></button>
+
+<div class="owner" id="ownerModal" hidden role="dialog" aria-modal="true" aria-labelledby="ownerTitle">
+  <div class="owner__card">
+    <button class="owner__x" id="ownerClose" type="button" aria-label="Cerrar">×</button>
+    <p class="script">Per il team di Pizzi</p>
+    <h2 id="ownerTitle">Esta web es una demo hecha para vosotros</h2>
+    <p class="owner__lead"><b>aibooking.dk</b> ha preparado esta propuesta para mostrar cómo podría ser Pizzi online, con <b>Sofia</b>: una asistente de voz con IA que atiende a vuestros clientes mientras vosotros estáis con el horno.</p>
+    <div class="owner__grid">
+      <div><h3>Ninguna llamada perdida</h3><p>En hora punta el teléfono suena mientras se hornea. Sofia contesta al momento, a todos a la vez, también fuera de horario.</p></div>
+      <div><h3>Pedidos y reservas solos</h3><p>Toma pedidos para recoger y reserva mesa: pizzas, extras, hora, nombre y teléfono, todo confirmado con el cliente.</p></div>
+      <div><h3>Habla el idioma del cliente</h3><p>Español, valenciano, inglés, italiano… perfecto para los turistas del Mercado Central.</p></div>
+      <div><h3>Sin comisiones de apps</h3><p>Pedidos directos desde vuestra propia web, con vuestra carta, vuestros precios y vuestros clientes.</p></div>
+    </div>
+    <p class="owner__note"><b>Ojo:</b> ahora mismo es una demo. Los pedidos y reservas son de prueba y no llegan a ningún local. El siguiente paso es conectarlo a vuestro WhatsApp, TPV o agenda.</p>
+    <div class="owner__btns">
+      <button class="btn btn--red" id="ownerTry" type="button">Probar a Sofia ahora</button>
+      <a class="btn btn--line" href="https://aibooking.dk" target="_blank" rel="noopener">Hablar con aibooking.dk →</a>
+    </div>
+  </div>
+</div>
+
+<script>window.PIZZI_VOICE={publicKey:"",assistantId:"36653b2a-795e-422d-9616-c11aa560fd0c"};</script>
+<script src="assets/vendor/vapi-web-2.7.1.min.js" defer></script>
+<script src="assets/js/voice.js" defer></script>
+
 </body>
 </html>

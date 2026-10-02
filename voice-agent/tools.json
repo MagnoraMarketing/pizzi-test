@@ -1,0 +1,123 @@
+{
+  "_note": "Tool definitions for the Pizzi voice agent. All endpoints are mocks until the real API is connected: return \"demo\": true and a fake confirmation code (e.g. PZ-7K3M). Replace server.url with the real backend later.",
+  "server": { "url": "https://api.example.com/pizzi", "mode": "demo" },
+  "tools": [
+    {
+      "name": "get_current_time",
+      "description": "Returns the current date, weekday and time in Europe/Madrid. Call before saying whether a location is open or suggesting times.",
+      "parameters": { "type": "object", "properties": {}, "required": [] },
+      "mock_response": { "demo": true, "iso": "2026-10-02T20:14:00+02:00", "weekday": "viernes", "time": "20:14" }
+    },
+    {
+      "name": "check_pickup_slot",
+      "description": "Checks whether a pickup time is possible at a location (within opening hours, 15-minute slots, earliest now + 15 min).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location_id": { "type": "string", "enum": ["mercado", "abastos", "russafa", "canovas", "peris"] },
+          "pickup_time": { "type": "string", "description": "ISO 8601 or \"asap\"" }
+        },
+        "required": ["location_id", "pickup_time"]
+      },
+      "mock_response": { "demo": true, "available": true, "pickup_time": "2026-10-02T20:30:00+02:00", "alternatives": [] }
+    },
+    {
+      "name": "create_order",
+      "description": "Creates a pickup order. Call only after the customer has confirmed the read-back summary with a clear yes.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location_id": { "type": "string", "enum": ["mercado", "abastos", "russafa", "canovas", "peris"] },
+          "pickup_time": { "type": "string", "description": "ISO 8601" },
+          "customer_name": { "type": "string" },
+          "customer_phone": { "type": "string" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "product": { "type": "string", "enum": ["PISTACHIOLA", "ITALIANISIMA", "TARTUFINA", "DI PARMA", "MONTESA", "BARBACOA", "MARGHERITA", "QUATTRO FORMAGGI", "REINA", "PEPPERONI", "NAPOLI", "TUNA", "CAPRICCIOSA", "COCA-COLA", "COCA-COLA ZERO", "FANTA NARANJA", "FANTA LIMON", "CERVEZA", "AGUA"] },
+                "quantity": { "type": "integer", "minimum": 1 },
+                "extras": { "type": "array", "items": { "type": "string", "enum": ["mozzarella_vegana", "extra_mozzarella", "extra_burrata", "aceite_picante"] } },
+                "notes": { "type": "string" }
+              },
+              "required": ["product", "quantity"]
+            }
+          },
+          "total_eur": { "type": "number" }
+        },
+        "required": ["location_id", "pickup_time", "customer_name", "customer_phone", "items", "total_eur"]
+      },
+      "mock_response": { "demo": true, "status": "confirmed", "confirmation_code": "PZ-7K3M", "pickup_time": "2026-10-02T20:30:00+02:00", "total_eur": 22.3 }
+    },
+    {
+      "name": "check_table_availability",
+      "description": "Checks for a free table at a location for a date, time and party size. Returns up to two alternatives if taken.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location_id": { "type": "string", "enum": ["mercado", "abastos", "russafa", "canovas", "peris"] },
+          "datetime": { "type": "string", "description": "ISO 8601" },
+          "party_size": { "type": "integer", "minimum": 1 }
+        },
+        "required": ["location_id", "datetime", "party_size"]
+      },
+      "mock_response": { "demo": true, "available": false, "alternatives": ["2026-10-03T20:30:00+02:00", "2026-10-03T21:15:00+02:00"] }
+    },
+    {
+      "name": "create_reservation",
+      "description": "Books a table. Call only after the customer has confirmed. For more than 10 people, set group_request=true (the location calls back).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location_id": { "type": "string", "enum": ["mercado", "abastos", "russafa", "canovas", "peris"] },
+          "datetime": { "type": "string" },
+          "party_size": { "type": "integer", "minimum": 1 },
+          "customer_name": { "type": "string" },
+          "customer_phone": { "type": "string" },
+          "notes": { "type": "string", "description": "High chair, birthday, terrace, etc." },
+          "group_request": { "type": "boolean" }
+        },
+        "required": ["location_id", "datetime", "party_size", "customer_name", "customer_phone"]
+      },
+      "mock_response": { "demo": true, "status": "confirmed", "confirmation_code": "PZ-R4T9", "hold_minutes": 15 }
+    },
+    {
+      "name": "find_booking",
+      "description": "Finds an order or reservation by confirmation code, or by name and phone.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "confirmation_code": { "type": "string" },
+          "customer_name": { "type": "string" },
+          "customer_phone": { "type": "string" }
+        },
+        "required": []
+      },
+      "mock_response": { "demo": true, "found": true, "type": "reservation", "confirmation_code": "PZ-R4T9", "location_id": "canovas", "datetime": "2026-10-03T20:30:00+02:00", "party_size": 4 }
+    },
+    {
+      "name": "update_booking",
+      "description": "Changes the time, party size, items or notes on an existing order or reservation.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "confirmation_code": { "type": "string" },
+          "changes": { "type": "object", "description": "Fields to change, e.g. {\"datetime\": \"...\", \"party_size\": 6}" }
+        },
+        "required": ["confirmation_code", "changes"]
+      },
+      "mock_response": { "demo": true, "status": "updated", "confirmation_code": "PZ-R4T9" }
+    },
+    {
+      "name": "cancel_booking",
+      "description": "Cancels an order or reservation. Confirm with the customer first.",
+      "parameters": {
+        "type": "object",
+        "properties": { "confirmation_code": { "type": "string" } },
+        "required": ["confirmation_code"]
+      },
+      "mock_response": { "demo": true, "status": "cancelled" }
+    }
+  ]
+}

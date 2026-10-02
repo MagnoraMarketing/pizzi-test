@@ -1,13 +1,15 @@
 # PIZZI · Mercado Central (Valencia)
 
-Ny hjemmeside til Pizzi Pizzería med scroll-styret "video"-effekt. Den er ren HTML/CSS/JS uden build-trin og uden afhængigheder, så den kan køre direkte på GitHub Pages.
+Hjemmeside til Pizzi Pizzería med carta, live åbningsstatus for alle 5 steder og stemmeassistenten Sofia (Vapi). Den er ren HTML/CSS/JS uden build-trin, så den kan køre direkte på Vercel eller GitHub Pages.
 
 - `index.html`: siden
 - `assets/css/style.css`: design
-- `assets/js/main.js`: scroll-motor, carta, locales og live åben/lukket-status (Europe/Madrid)
+- `assets/js/main.js`: carta med filtre, locales, mobilmenu og live åben/lukket-status (Europe/Madrid)
+- `assets/js/voice.js` + `assets/vendor/`: Sofia voice-widget (Vapi web SDK 2.7.1) og demo-boksen om aibooking.dk. Sæt `publicKey` i `window.PIZZI_VOICE` i `index.html`.
+- `voice-agent/`: prompts og fiktive værktøjsdefinitioner til Vapi
 - `assets/img/`: fotos
 
 Lokalt: `python3 -m http.server` og åbn http://localhost:8000.
-Respekterer `prefers-reduced-motion`. Uden JavaScript vises en statisk version.
+Respekterer `prefers-reduced-motion`.
 
 Den tidligere Forno Rosso-side ligger nu i `forno-rosso/`.
