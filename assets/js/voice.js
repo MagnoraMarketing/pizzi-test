@@ -70,6 +70,14 @@
     vapi.on("speech-end", () => { if (state === "live") say("listening"); });
     vapi.on("volume-level", v => orb.style.setProperty("--vol", Math.min(1, v * 1.6).toFixed(3)));
     vapi.on("message", m => {
+      // create_order from Sofia → show the order on screen for review/payment (order.js)
+      const calls = m && m.type === "tool-calls" ? (m.toolCallList || m.toolCalls || []).map(c => c.function || c)
+        : m && m.type === "function-call" && m.functionCall ? [{ name: m.functionCall.name, arguments: m.functionCall.parameters }] : [];
+      calls.filter(c => c && c.name === "create_order").forEach(c => {
+        let args = c.arguments || c.parameters || {};
+        if (typeof args === "string") { try { args = JSON.parse(args); } catch (_) { args = {}; } }
+        dispatchEvent(new CustomEvent("pizzi:voice-order", { detail: args }));
+      });
       if (m && m.type === "transcript" && m.transcript) addLine(m.role === "user" ? "user" : "bot", m.transcript, m.transcriptType === "partial");
     });
     vapi.on("error", e => {

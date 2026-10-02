@@ -132,6 +132,11 @@
   $("#locClose").addEventListener("click", closeLoc);
   locModal.addEventListener("click", e => { if (e.target === locModal) closeLoc(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !locModal.hidden) closeLoc(); });
+  $("#locWeb").addEventListener("click", () => {
+    const l = locCurrent;
+    closeLoc();
+    if (window.PizziOrder) window.PizziOrder.startAt(l.id);
+  });
   $("#locOrder").addEventListener("click", () => {
     const l = locCurrent;
     closeLoc();
@@ -141,13 +146,15 @@
   function renderCarta() {
     const drinkCards = DRINKS.map(([n, p]) => `
       <article class="card" data-type="bebida"><div class="card__img"><div class="card__drink">${esc(n[0])}</div></div>
-        <div class="card__body"><div class="card__top"><h3>${esc(n)}</h3><span class="card__price">${eur(p)}</span></div><p>${n === "Agua" ? "Botella 50 cl" : "Lata 33 cl"}</p></div></article>`);
+        <div class="card__body"><div class="card__top"><h3>${esc(n)}</h3><span class="card__price">${eur(p)}</span></div><p>${n === "Agua" ? "Botella 50 cl" : "Lata 33 cl"}</p></div>
+        <button type="button" class="card__add" data-add="${esc(n)}" aria-label="Añadir ${esc(n)} al pedido">+</button></article>`);
     const pizzaCards = PIZZAS.map(([n, t, ing, p, tag, look]) => {
       const visual = look.startsWith("img:")
         ? `<img src="assets/img/${look.slice(4)}" alt="Pizza ${esc(n.toLowerCase())}" loading="lazy">`
         : `<div class="card__disc" style="background:${LOOKS[look]}"></div>`;
       return `<article class="card" data-type="${t}"><div class="card__img">${visual}</div>
-        <div class="card__body"><div class="card__top"><h3>${esc(n)}</h3><span class="card__price">${eur(p)}</span></div><p>${esc(ing)}</p>${tag ? `<span class="card__tag">${esc(tag)}</span>` : ""}</div></article>`;
+        <div class="card__body"><div class="card__top"><h3>${esc(n)}</h3><span class="card__price">${eur(p)}</span></div><p>${esc(ing)}</p>${tag ? `<span class="card__tag">${esc(tag)}</span>` : ""}</div>
+        <button type="button" class="card__add" data-add="${esc(n)}" aria-label="Añadir ${esc(n)} al pedido">+</button></article>`;
     });
     $("#cartaGrid").innerHTML = pizzaCards.concat(drinkCards).join("");
     $$(".tabs [data-filter]").forEach(b => b.addEventListener("click", () => {
@@ -156,6 +163,9 @@
       $$("#cartaGrid .card").forEach(c => { c.hidden = f !== "all" && c.dataset.type !== f; });
     }));
   }
+
+  // shared with order.js
+  window.Pizzi = { LOCALES, PIZZAS, DRINKS, DIAS, LOOKS, status, madridNow, toMin, hhmm, eur, esc };
 
   /* ------------------------------------------------------------------ boot */
   renderLocales();
