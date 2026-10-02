@@ -219,5 +219,52 @@
 </footer>
 
 <script src="assets/js/main.js" defer></script>
+<!-- ============ VOICE WIDGET · Sofia (Vapi) ============ -->
+<button class="vfab" id="vFab" type="button" aria-controls="vPanel" aria-expanded="false">
+  <span class="vfab__ring" aria-hidden="true"></span>
+  <span class="vfab__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+  <span class="vfab__txt">Habla con Sofia</span>
+</button>
+
+<section class="vpanel" id="vPanel" hidden aria-label="Asistente de voz Sofia">
+  <header class="vpanel__head">
+    <div><b>Sofia</b><span>Asistente de voz de Pizzi</span></div>
+    <span class="vbadge">Demo</span>
+    <button class="vpanel__x" id="vClose" type="button" aria-label="Cerrar">×</button>
+  </header>
+  <div class="vorb" id="vOrb" aria-hidden="true"><img src="assets/img/pistachiola.webp" alt=""></div>
+  <p class="vstatus" id="vStatus" role="status" aria-live="polite"></p>
+  <div class="vlog" id="vLog" aria-live="polite"></div>
+  <p class="vhint">Pide para recoger, reserva mesa o pregunta por la carta. Español, English, italiano…</p>
+  <button class="btn btn--red vcall" id="vCall" type="button">Hablar con Sofia</button>
+  <button class="vpowered" type="button" data-owner>Demo creada por <b>aibooking.dk</b> · ¿Eres de Pizzi?</button>
+</section>
+
+<button class="demo-pill" type="button" data-owner><span class="demo-pill__dot"></span><span>Demo · <b>aibooking.dk</b></span><span class="demo-pill__more">¿Eres el dueño de Pizzi?</span></button>
+
+<div class="owner" id="ownerModal" hidden role="dialog" aria-modal="true" aria-labelledby="ownerTitle">
+  <div class="owner__card">
+    <button class="owner__x" id="ownerClose" type="button" aria-label="Cerrar">×</button>
+    <p class="script">Per il team di Pizzi</p>
+    <h2 id="ownerTitle">Esta web es una demo hecha para vosotros</h2>
+    <p class="owner__lead"><b>aibooking.dk</b> ha preparado esta propuesta para mostrar cómo podría ser Pizzi online, con <b>Sofia</b>: una asistente de voz con IA que atiende a vuestros clientes mientras vosotros estáis con el horno.</p>
+    <div class="owner__grid">
+      <div><h3>Ninguna llamada perdida</h3><p>En hora punta el teléfono suena mientras se hornea. Sofia contesta al momento, a todos a la vez, también fuera de horario.</p></div>
+      <div><h3>Pedidos y reservas solos</h3><p>Toma pedidos para recoger y reserva mesa: pizzas, extras, hora, nombre y teléfono, todo confirmado con el cliente.</p></div>
+      <div><h3>Habla el idioma del cliente</h3><p>Español, valenciano, inglés, italiano… perfecto para los turistas del Mercado Central.</p></div>
+      <div><h3>Sin comisiones de apps</h3><p>Pedidos directos desde vuestra propia web, con vuestra carta, vuestros precios y vuestros clientes.</p></div>
+    </div>
+    <p class="owner__note"><b>Ojo:</b> ahora mismo es una demo. Los pedidos y reservas son de prueba y no llegan a ningún local. El siguiente paso es conectarlo a vuestro WhatsApp, TPV o agenda.</p>
+    <div class="owner__btns">
+      <button class="btn btn--red" id="ownerTry" type="button">Probar a Sofia ahora</button>
+      <a class="btn btn--line" href="https://aibooking.dk" target="_blank" rel="noopener">Hablar con aibooking.dk →</a>
+    </div>
+  </div>
+</div>
+
+<script>window.PIZZI_VOICE={publicKey:"",assistantId:"36653b2a-795e-422d-9616-c11aa560fd0c"};</script>
+<script src="assets/vendor/vapi-web-2.7.1.min.js" defer></script>
+<script src="assets/js/voice.js" defer></script>
+
 </body>
 </html>
