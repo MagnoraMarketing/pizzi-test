@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forno Rosso – Napolitansk pizzeria</title>
+  <meta name="description" content="Forno Rosso – napolitansk pizza bagt i træfyret ovn.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23d9a066'/><circle cx='50' cy='50' r='38' fill='%23b8352a'/></svg>">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#" class="logo">Forno Rosso</a>
+      <nav>
+        <a href="#menu">Menu</a>
+        <a href="#besog">Besøg</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <p class="eyebrow">Napolitansk pizza · Aarhus</p>
+        <h1>Enkel pizza,<br><em>gjort ordentligt.</em></h1>
+        <p class="lead">Surdej, tomater, mozzarella og en træfyret ovn på 450 grader. Mere skal der ikke til.</p>
+        <a href="#menu" class="btn">Se menuen</a>
+      </div>
+      <svg class="pizza" viewBox="0 0 400 400" aria-hidden="true">
+        <defs>
+          <radialGradient id="crust" cx="50%" cy="50%" r="50%">
+            <stop offset="78%" stop-color="#e3b072"/>
+            <stop offset="94%" stop-color="#c98a45"/>
+            <stop offset="100%" stop-color="#8a5424"/>
+          </radialGradient>
+          <radialGradient id="sauce" cx="45%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#d4453a"/>
+            <stop offset="100%" stop-color="#a52a20"/>
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="188" fill="url(#crust)"/>
+        <g fill="#3b2416" opacity=".55">
+          <circle cx="60" cy="150" r="5"/><circle cx="340" cy="230" r="6"/>
+          <circle cx="250" cy="28" r="4"/><circle cx="120" cy="352" r="5"/>
+          <circle cx="330" cy="110" r="3"/><circle cx="40" cy="250" r="3"/>
+        </g>
+        <path d="M200 50c82 0 152 64 150 148s-64 152-150 152S48 290 50 200 118 50 200 50z" fill="url(#sauce)"/>
+        <g fill="#fbf4e8">
+          <path d="M120 130c18-14 44-8 48 12s-14 34-34 32-30-30-14-44z"/>
+          <path d="M240 108c20-8 42 4 40 24s-24 30-40 22-20-38 0-46z"/>
+          <path d="M250 240c22-10 48 6 46 28s-30 34-48 24-20-42 2-52z"/>
+          <path d="M120 250c18-8 40 4 38 24s-26 28-42 20-16-36 4-44z"/>
+          <path d="M190 180c16-6 32 4 30 20s-20 24-34 16-12-30 4-36z"/>
+        </g>
+        <g fill="#2f6a33">
+          <path d="M175 118c16-16 40-14 46 0-16 14-36 14-46 0z"/>
+          <path d="M296 196c6 22-6 40-20 40-2-20 6-34 20-40z"/>
+          <path d="M100 196c16-14 38-10 42 4-16 12-34 10-42-4z"/>
+          <path d="M200 296c20 2 32 18 26 32-18-2-28-16-26-32z"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section" id="menu">
+    <div class="container narrow">
+      <p class="eyebrow center">Menu</p>
+      <h2 class="center">Fra ovnen</h2>
+
+      <ul class="menu">
+        <li><div><h3>Marinara</h3><p>Tomat, hvidløg, oregano, olivenolie</p></div><span>95</span></li>
+        <li><div><h3>Margherita</h3><p>Tomat, fior di latte, basilikum</p></div><span>115</span></li>
+        <li><div><h3>Diavola</h3><p>Tomat, mozzarella, stærk salami, chili-honning</p></div><span>135</span></li>
+        <li><div><h3>Funghi</h3><p>Mozzarella, svampe, timian, citron</p></div><span>130</span></li>
+        <li><div><h3>Patate</h3><p>Kartoffel, rosmarin, røget provola</p></div><span>135</span></li>
+        <li><div><h3>Burrata</h3><p>Tomat, burrata, nduja, basilikum</p></div><span>155</span></li>
+      </ul>
+      <p class="note">Alle pizzaer kan fås glutenfri · Priser i kr.</p>
+    </div>
+  </section>
+
+  <section class="quote">
+    <div class="container narrow">
+      <blockquote>“Dejen hviler i 48 timer. Pizzaen er i ovnen i 90 sekunder.”</blockquote>
+    </div>
+  </section>
+
+  <section class="section" id="besog">
+    <div class="container visit">
+      <div>
+        <h3>Adresse</h3>
+        <p>Ovnstræde 12<br>8000 Aarhus C</p>
+      </div>
+      <div>
+        <h3>Åbent</h3>
+        <p>Ons–søn<br>17.00–21.30</p>
+      </div>
+      <div>
+        <h3>Bord</h3>
+        <p><a href="tel:+4512345678">12 34 56 78</a><br><a href="mailto:hej@fornorosso.dk">hej@fornorosso.dk</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Forno Rosso</div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

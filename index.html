@@ -1,116 +1,223 @@
 <!doctype html>
-<html lang="da">
+<html lang="es" class="no-motion">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Forno Rosso – Napolitansk pizzeria</title>
-  <meta name="description" content="Forno Rosso – napolitansk pizza bagt i træfyret ovn.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23d9a066'/><circle cx='50' cy='50' r='38' fill='%23b8352a'/></svg>">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PIZZI · Auténtica pizza napoletana en Valencia</title>
+<meta name="description" content="Pizzi Pizzería Mercado Central, Valencia. Masa napolitana, horno italiano a 485 °C y nuestra caja de cuadros. Desde 6,90 €.">
+<meta name="theme-color" content="#c3252d">
+<meta property="og:title" content="PIZZI · Auténtica pizza napoletana">
+<meta property="og:description" content="Llévame a casa que estoy caliente. Cinco hornos en Valencia.">
+<meta property="og:image" content="assets/img/pistachiola.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c3252d'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23f6c9c9' font-family='Impact,sans-serif'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Big+Shoulders+Display:wght@700;900&family=Caveat:wght@600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/pistachiola.webp">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.remove("no-motion")</script>
 </head>
 <body>
 
-  <header class="nav">
-    <div class="container nav__inner">
-      <a href="#" class="logo">Forno Rosso</a>
-      <nav>
-        <a href="#menu">Menu</a>
-        <a href="#besog">Besøg</a>
-      </nav>
-    </div>
-  </header>
+<!-- Intro loader -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__count"><span id="loaderNum">0</span><small>%</small></div>
+  <div class="loader__word">PIZZI</div>
+  <div class="loader__bar"><i id="loaderBar"></i></div>
+</div>
 
-  <section class="hero">
-    <div class="container hero__inner">
-      <div class="hero__text">
-        <p class="eyebrow">Napolitansk pizza · Aarhus</p>
-        <h1>Enkel pizza,<br><em>gjort ordentligt.</em></h1>
-        <p class="lead">Surdej, tomater, mozzarella og en træfyret ovn på 450 grader. Mere skal der ikke til.</p>
-        <a href="#menu" class="btn">Se menuen</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="nav__logo" aria-label="Pizzi, inicio">PIZZI</a>
+  <nav class="nav__links" aria-label="Principal">
+    <a href="#historia">La historia</a>
+    <a href="#carta">Carta</a>
+    <a href="#mercado">Mercado Central</a>
+    <a href="#locales">Locales</a>
+  </nav>
+  <a href="tel:+34744784737" class="nav__cta"><span class="dot" data-live-dot></span><span data-live-short>Llamar</span></a>
+</header>
+
+<main id="top">
+
+  <!-- ============ SCENE 1 · HERO ============ -->
+  <section class="hero scene" data-scene="hero" aria-label="Pizzi">
+    <div class="sticky">
+      <div class="hero__bg"></div>
+
+      <div class="hero__word" aria-hidden="true">
+        <span class="hw hw--l">PI</span><span class="hw hw--r">ZZI</span>
       </div>
-      <svg class="pizza" viewBox="0 0 400 400" aria-hidden="true">
-        <defs>
-          <radialGradient id="crust" cx="50%" cy="50%" r="50%">
-            <stop offset="78%" stop-color="#e3b072"/>
-            <stop offset="94%" stop-color="#c98a45"/>
-            <stop offset="100%" stop-color="#8a5424"/>
-          </radialGradient>
-          <radialGradient id="sauce" cx="45%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#d4453a"/>
-            <stop offset="100%" stop-color="#a52a20"/>
-          </radialGradient>
-        </defs>
-        <circle cx="200" cy="200" r="188" fill="url(#crust)"/>
-        <g fill="#3b2416" opacity=".55">
-          <circle cx="60" cy="150" r="5"/><circle cx="340" cy="230" r="6"/>
-          <circle cx="250" cy="28" r="4"/><circle cx="120" cy="352" r="5"/>
-          <circle cx="330" cy="110" r="3"/><circle cx="40" cy="250" r="3"/>
-        </g>
-        <path d="M200 50c82 0 152 64 150 148s-64 152-150 152S48 290 50 200 118 50 200 50z" fill="url(#sauce)"/>
-        <g fill="#fbf4e8">
-          <path d="M120 130c18-14 44-8 48 12s-14 34-34 32-30-30-14-44z"/>
-          <path d="M240 108c20-8 42 4 40 24s-24 30-40 22-20-38 0-46z"/>
-          <path d="M250 240c22-10 48 6 46 28s-30 34-48 24-20-42 2-52z"/>
-          <path d="M120 250c18-8 40 4 38 24s-26 28-42 20-16-36 4-44z"/>
-          <path d="M190 180c16-6 32 4 30 20s-20 24-34 16-12-30 4-36z"/>
-        </g>
-        <g fill="#2f6a33">
-          <path d="M175 118c16-16 40-14 46 0-16 14-36 14-46 0z"/>
-          <path d="M296 196c6 22-6 40-20 40-2-20 6-34 20-40z"/>
-          <path d="M100 196c16-14 38-10 42 4-16 12-34 10-42-4z"/>
-          <path d="M200 296c20 2 32 18 26 32-18-2-28-16-26-32z"/>
-        </g>
-      </svg>
+
+      <div class="hero__ingredients" aria-hidden="true" id="ingredients"></div>
+
+      <div class="hero__pizza">
+        <img src="assets/img/pistachiola.webp" alt="Pizza Pistachiola de Pizzi recién salida del horno" width="720" height="680" fetchpriority="high">
+        <div class="hero__steam" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="hero__badge" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+          <text textLength="486" lengthAdjust="spacingAndGlyphs"><textPath href="#circ" textLength="486" lengthAdjust="spacingAndGlyphs">PIZZA NAPOLETANA · HORNO ITALIANO · VALENCIA · </textPath></text></svg>
+        <div><small>desde</small><b>6,90€</b><small>31 cm</small></div>
+      </div>
+
+      <p class="hero__sticker" aria-hidden="true">Llévame a casa<br>que estoy<br>caliente</p>
+
+      <div class="hero__copy">
+        <p class="kicker">Mercado Central · Valencia</p>
+        <h1 class="hero__title">
+          <span class="line"><span>Auténtica</span></span>
+          <span class="line"><span>pizza</span></span>
+          <span class="line"><span><em>napoletana</em></span></span>
+        </h1>
+        <div class="hero__btns">
+          <a class="btn btn--light" href="#carta">Ver la carta</a>
+          <a class="btn btn--ghost" href="#mercado">Cómo llegar</a>
+        </div>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
     </div>
   </section>
 
-  <section class="section" id="menu">
-    <div class="container narrow">
-      <p class="eyebrow center">Menu</p>
-      <h2 class="center">Fra ovnen</h2>
+  <!-- marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="checker"></div>
+    <div class="marquee__track" data-marquee>
+      <span>Horno italiano</span><b>✦</b><span>31 cm de felicidad</span><b>✦</b><span>Mozzarella vegana disponible</span><b>✦</b><span>Llévame a casa que estoy caliente</span><b>✦</b><span>Masa de 48 horas</span><b>✦</b>
+    </div>
+  </div>
 
-      <ul class="menu">
-        <li><div><h3>Marinara</h3><p>Tomat, hvidløg, oregano, olivenolie</p></div><span>95</span></li>
-        <li><div><h3>Margherita</h3><p>Tomat, fior di latte, basilikum</p></div><span>115</span></li>
-        <li><div><h3>Diavola</h3><p>Tomat, mozzarella, stærk salami, chili-honning</p></div><span>135</span></li>
-        <li><div><h3>Funghi</h3><p>Mozzarella, svampe, timian, citron</p></div><span>130</span></li>
-        <li><div><h3>Patate</h3><p>Kartoffel, rosmarin, røget provola</p></div><span>135</span></li>
-        <li><div><h3>Burrata</h3><p>Tomat, burrata, nduja, basilikum</p></div><span>155</span></li>
-      </ul>
-      <p class="note">Alle pizzaer kan fås glutenfri · Priser i kr.</p>
+  <!-- ============ SCENE 2 · FILM / STORY ============ -->
+  <section class="film scene" data-scene="film" id="historia" aria-label="La historia de una Pizzi">
+    <div class="sticky">
+      <div class="film__frames">
+        <figure class="frame" data-frame="0"><img src="assets/img/pizza.jpg" alt="Pizza napolitana con jamón, champiñones y albahaca en su caja" loading="lazy"></figure>
+        <figure class="frame" data-frame="1"><img src="assets/img/mesa.jpg" alt="Pizzas Pizzi sobre mantel de cuadros rosas" loading="lazy"></figure>
+        <figure class="frame frame--heat" data-frame="2"><img src="assets/img/pizza.jpg" alt="" loading="lazy"></figure>
+        <figure class="frame" data-frame="3"><img src="assets/img/caja.jpg" alt="Caja de cuadros de Pizzi: llévame a casa que estoy caliente" loading="lazy"></figure>
+      </div>
+      <div class="film__shade"></div>
+      <div class="letterbox letterbox--t"></div><div class="letterbox letterbox--b"></div>
+
+      <div class="hud" aria-hidden="true">
+        <div class="hud__tl"><span class="rec"></span> REC <span class="hud__file">PIZZI_MERCADO.MOV</span></div>
+        <div class="hud__tr"><span id="tc">00:00:00:00</span></div>
+        <div class="hud__corners"><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="chapters">
+        <article class="chapter" data-ch="0">
+          <span class="chapter__n">01 — La masa</span>
+          <h2>48 horas<br>de paciencia</h2>
+          <p>Harina italiana, agua, sal y tiempo. Fermentación lenta para un cornicione que se infla como debe.</p>
+        </article>
+        <article class="chapter" data-ch="1">
+          <span class="chapter__n">02 — El cariño</span>
+          <h2>Pomodoro<br>&amp; fior di latte</h2>
+          <p>Tomate pelado a mano, mozzarella fresca, albahaca y crema de burrata. Nada más, nada menos.</p>
+        </article>
+        <article class="chapter" data-ch="2">
+          <span class="chapter__n">03 — El fuego</span>
+          <h2><span class="big-num" id="degrees">485</span>°C<br>90 segundos</h2>
+          <p>Horno italiano a temperatura napolitana. Leopardato por fuera, tierna por dentro.</p>
+        </article>
+        <article class="chapter" data-ch="3">
+          <span class="chapter__n">04 — La caja</span>
+          <h2>Llévame a casa<br>que estoy caliente</h2>
+          <p>Nuestra caja de cuadros de siempre. Diez minutos de la masa a tus manos.</p>
+        </article>
+      </div>
+
+      <div class="timeline" aria-hidden="true">
+        <div class="timeline__bar"><i id="tlFill"></i></div>
+        <ol><li>Masa</li><li>Cariño</li><li>Fuego</li><li>Caja</li></ol>
+      </div>
     </div>
   </section>
 
-  <section class="quote">
-    <div class="container narrow">
-      <blockquote>“Dejen hviler i 48 timer. Pizzaen er i ovnen i 90 sekunder.”</blockquote>
+  <!-- stats -->
+  <section class="stats" aria-label="Pizzi en números">
+    <div class="stat"><b data-count="485">0</b><span>°C en el horno</span></div>
+    <div class="stat"><b data-count="90">0</b><span>segundos de cocción</span></div>
+    <div class="stat"><b data-count="31">0</b><span>cm de felicidad</span></div>
+    <div class="stat"><b data-count="5">0</b><span>hornos en Valencia</span></div>
+  </section>
+
+  <!-- ============ SCENE 3 · HORIZONTAL MENU ============ -->
+  <section class="carta scene" data-scene="carta" id="carta" aria-label="Carta">
+    <div class="sticky">
+      <header class="carta__head">
+        <p class="script">Le preferite</p>
+        <h2>La carta</h2>
+        <p class="carta__hint">Pizza mediana de 31 cm · mozzarella vegana +2 €</p>
+      </header>
+      <div class="carta__track" id="cartaTrack"></div>
+      <div class="carta__progress" aria-hidden="true"><i id="cartaFill"></i></div>
     </div>
   </section>
 
-  <section class="section" id="besog">
-    <div class="container visit">
-      <div>
-        <h3>Adresse</h3>
-        <p>Ovnstræde 12<br>8000 Aarhus C</p>
+  <!-- ============ SCENE 4 · CINEMA REVEAL ============ -->
+  <section class="reveal scene" data-scene="reveal" aria-label="Da portare via">
+    <div class="sticky">
+      <div class="reveal__media"><img src="assets/img/mesa.jpg" alt="Mesa con pizzas Pizzi en sus cajas de cuadros" loading="lazy"></div>
+      <h2 class="reveal__title" aria-label="Llévame a casa que estoy caliente">
+        <span>Llévame</span><span>a casa</span><span>que estoy</span><span>caliente</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- ============ MERCADO ============ -->
+  <section class="mercado" id="mercado" aria-labelledby="mercadoTitle">
+    <div class="mercado__inner">
+      <div class="mercado__info">
+        <p class="script">Il nostro forno</p>
+        <h2 id="mercadoTitle">Pizzi<br>Mercado Central</h2>
+        <div class="status" data-status="mercado"><span class="dot"></span><span class="status__txt">…</span></div>
+        <ul class="mercado__facts">
+          <li><span>Dirección</span><a href="https://maps.app.goo.gl/rAKcLgmbYJYk6TSh9" target="_blank" rel="noopener">C/ de les Carabasses, 3<br>Ciutat Vella, 46001 València</a></li>
+          <li><span>Teléfono</span><a href="tel:+34744784737">+34 744 78 47 37</a></li>
+          <li><span>Google</span><b class="rating">4,5 <i>★★★★★</i></b></li>
+          <li><span>Para llevar</span><b>Pide, recoge y a disfrutar</b></li>
+        </ul>
+        <div class="hours" id="hoursMercado"></div>
+        <div class="mercado__btns">
+          <a class="btn btn--red" href="tel:+34744784737">Llamar y pedir</a>
+          <a class="btn btn--line" href="https://maps.app.goo.gl/rAKcLgmbYJYk6TSh9" target="_blank" rel="noopener">Cómo llegar →</a>
+        </div>
       </div>
-      <div>
-        <h3>Åbent</h3>
-        <p>Ons–søn<br>17.00–21.30</p>
-      </div>
-      <div>
-        <h3>Bord</h3>
-        <p><a href="tel:+4512345678">12 34 56 78</a><br><a href="mailto:hej@fornorosso.dk">hej@fornorosso.dk</a></p>
+      <div class="mercado__map">
+        <iframe title="Mapa de Pizzi Mercado Central" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Pizzi%20Pizzer%C3%ADa%2C%20Carrer%20de%20les%20Carabasses%203%2C%2046001%20Val%C3%A8ncia&z=16&output=embed"></iframe>
+        <div class="mercado__stamp" aria-hidden="true">Desde<br><b>6,90€</b></div>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container">© <span id="year"></span> Forno Rosso</div>
-  </footer>
+  <!-- ============ LOCALES ============ -->
+  <section class="locales" id="locales" aria-labelledby="localesTitle">
+    <p class="script">Cinque forni a Valencia</p>
+    <h2 id="localesTitle">Tu Pizzi más cerca</h2>
+    <div class="locales__grid" id="localesGrid"></div>
+  </section>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</main>
+
+<footer class="footer">
+  <div class="checker checker--light"></div>
+  <div class="footer__inner">
+    <div class="footer__big" aria-hidden="true">PIZZI</div>
+    <div class="footer__cols">
+      <div><h3>Mercado Central</h3><p>C/ de les Carabasses, 3<br>46001 València</p><a href="tel:+34744784737">+34 744 78 47 37</a></div>
+      <div><h3>Síguenos</h3><a href="https://www.instagram.com/pizzi.es/" target="_blank" rel="noopener">Instagram @pizzi.es</a><a href="https://www.tiktok.com/@pizzi_valencia" target="_blank" rel="noopener">TikTok @pizzi_valencia</a></div>
+      <div><h3>Pizzi</h3><p>Auténtica pizza napoletana.<br>Hecha en Valencia con horno italiano.</p></div>
+    </div>
+    <p class="footer__legal">© <span id="yr"></span> Pizzi Pizzería · Valencia</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
